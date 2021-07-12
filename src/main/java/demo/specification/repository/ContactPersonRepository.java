@@ -13,6 +13,6 @@ import java.util.List;
 public interface ContactPersonRepository extends JpaRepository<ContactPerson, Long>, JpaSpecificationExecutor<ContactPerson> {
 
     @Override
-    @EntityGraph(attributePaths = {"phones"})
+    @EntityGraph(attributePaths = {"phones", "company.address"})
     List<ContactPerson> findAll(Specification<ContactPerson> specification);
 }

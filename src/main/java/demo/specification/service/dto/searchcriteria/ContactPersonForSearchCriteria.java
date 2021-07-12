@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class ContactPersonForSearchCriteria implements Serializable {
+    private Long id;
     private String name;
     private LocalDate birthOfDate;
     private String phoneNumber;

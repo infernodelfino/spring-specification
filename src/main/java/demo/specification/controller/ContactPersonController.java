@@ -23,4 +23,10 @@ public class ContactPersonController {
     public List<ContactPersonDto> findAll(ContactPersonForSearchCriteria searchCriteria) {
         return contactPersonService.findAll(searchCriteria);
     }
+
+    @GetMapping("/contact-persons-sub")
+    @Transactional(readOnly = true)
+    public List<ContactPersonDto> findAllSub(ContactPersonForSearchCriteria searchCriteria) {
+        return contactPersonService.findAllSubquery(searchCriteria);
+    }
 }
