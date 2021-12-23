@@ -1,6 +1,5 @@
 package demo.specification.controller;
 
-import demo.specification.domain.ContactPerson;
 import demo.specification.dto.ContactPersonDto;
 import demo.specification.service.ContactPersonService;
 import demo.specification.service.dto.searchcriteria.ContactPersonForSearchCriteria;
@@ -24,9 +23,15 @@ public class ContactPersonController {
         return contactPersonService.findAll(searchCriteria);
     }
 
-    @GetMapping("/contact-persons-sub")
+    @GetMapping("/contact-persons-sub-same")
     @Transactional(readOnly = true)
-    public List<ContactPersonDto> findAllSub(ContactPersonForSearchCriteria searchCriteria) {
-        return contactPersonService.findAllSubquery(searchCriteria);
+    public List<ContactPersonDto> findAllSubSame(ContactPersonForSearchCriteria searchCriteria) {
+        return contactPersonService.findAllSubqueryInSameTable(searchCriteria);
+    }
+
+    @GetMapping("/contact-persons-sub-different")
+    @Transactional(readOnly = true)
+    public List<ContactPersonDto> findAllSubDifferent(ContactPersonForSearchCriteria searchCriteria) {
+        return contactPersonService.findAllSubqueryInDifferentTable(searchCriteria);
     }
 }
