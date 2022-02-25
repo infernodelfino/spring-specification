@@ -14,7 +14,7 @@ import java.util.List;
 public class ContactPersonSubquerySearchSpecification {
     public static Specification<ContactPerson> getSearchSpecs(ContactPersonForSearchCriteria searchCriteria) {
         return (root, criteriaQuery, criteriaBuilder) -> {
-            // SELECT * FROM ContactPerson c WHERE c.id IN (SELECT cp.id FROM ContactPerson cp WHERE cp.id = :id)
+            // SELECT * FROM ContactPerson c WHERE c.id NOT IN (SELECT cp.id FROM ContactPerson cp WHERE cp.id = :id)
             List<Predicate> predicateList = new ArrayList<>();
 
             Subquery<Long> subquery = criteriaQuery.subquery(Long.class);
@@ -22,7 +22,7 @@ public class ContactPersonSubquerySearchSpecification {
 
             subquery
                     .select(subRoot.get(ContactPerson_.id))
-                    .where(criteriaBuilder.equal(root.get(ContactPerson_.id), searchCriteria.getId()));
+                    .where(criteriaBuilder.equal(subRoot.get(ContactPerson_.id), searchCriteria.getId()));
 
             predicateList.add(criteriaBuilder.in(root.get(ContactPerson_.id)).value(subquery).not());
 
